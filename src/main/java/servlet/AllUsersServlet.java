@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet( "/allUsersServlet")
@@ -23,7 +24,7 @@ public class AllUsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<User> users =  userService2.getAllUsers();
         request.setAttribute("allUsers", users);
-        request.getRequestDispatcher("/index.jsp").forward(request,response);
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +32,7 @@ public class AllUsersServlet extends HttpServlet {
         try {
             bankClientService.createTable();
             resp.setStatus(200);
-        } catch (DBException e) {
+        } catch (DBException | SQLException e) {
             resp.setStatus(400);
         }
     }

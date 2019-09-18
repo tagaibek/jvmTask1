@@ -20,7 +20,7 @@ public class DeleteServlet extends HttpServlet {
         UserService2 userService2 = new  UserService2();
         long id = Long.parseLong(request.getParameter("delete"));
         boolean isDelete = userService2.deleteById(id);
-        if (isDelete){
+        if (isDelete) {
             response.sendRedirect(request.getContextPath() + "/allUsersServlet");
         }else {
             PrintWriter pr = response.getWriter();

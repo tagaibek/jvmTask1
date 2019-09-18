@@ -17,4 +17,6 @@ public interface IUserDAO {
     boolean updateUser(long id, User upDateUser);
 
     boolean deleteById(long id);
+
+    void createTable() throws SQLException;
 }

@@ -1,6 +1,7 @@
 package service;
 
 import DAO.UserDAO2;
+import DAO_interfaces.IUserDAO;
 import exception.DBException;
 import model.User;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class UserService2 {
 
-    public UserService2(){
+    public UserService2() {
     }
 
     public List<User> getAllUsers() {
@@ -20,7 +21,7 @@ public class UserService2 {
     }
 
 
-    public boolean addUser(User user) throws SQLException   {
+    public boolean addUser(User user) throws SQLException {
         boolean hasUser = getUserDAO2().getUserByLogin(user.getLogin());
         if (!hasUser) {
             getUserDAO2().addUser(user);
@@ -36,7 +37,7 @@ public class UserService2 {
     public boolean updateUser(long id, User updateUser) {
         boolean isLoginTrue = getUserDAO2().getUserByLogin(updateUser.getLogin());
         if (!isLoginTrue) {
-            return  getUserDAO2().updateUser(id,updateUser);
+            return  getUserDAO2().updateUser(id, updateUser);
         }
         return false;
     }
@@ -55,31 +56,23 @@ public class UserService2 {
                     append("jdbc:mysql://").        //db type
                     append("localhost:").           //host name
                     append("3306/").                //port
-                    append("uaser_table?").           //db name
-                    append("user=root&").          //login
-                    append("password=1234");       //password
-
-            // System.out.println("URL: " + url + "\n");
+                    append("uaser_table?").         //db name
+                    append("user=root&").           //login
+                    append("password=1234");        //password
 
             return DriverManager.getConnection(url.toString());
         } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
             e.printStackTrace();
-//            throw new IllegalStateException();
         }
-
         return null;
     }
 
-    private static UserDAO2 getUserDAO2() {
+    private static IUserDAO getUserDAO2() {
         return new UserDAO2(getMysqlConnection());
     }
 
-    public void createTable() throws DBException {
-        UserDAO2 dao = getUserDAO2();
-        try {
-            dao.createTable();
-        } catch (SQLException e) {
-            throw new DBException(e);
-        }
+    public void createTable() throws DBException, SQLException {
+        IUserDAO dao = getUserDAO2();
+        dao.createTable();
     }
 }
