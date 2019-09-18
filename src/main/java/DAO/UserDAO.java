@@ -1,6 +1,6 @@
 package DAO;
 
-import main.java.model.User;
+import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

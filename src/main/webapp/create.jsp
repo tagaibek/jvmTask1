@@ -16,7 +16,7 @@ create.jsp
 </html>
 
 <form name="Create" action="CreateServlet" method="Post">
-    name:       <input type="text" name="login"/>
+    login:       <input type="text" name="login"/>
     password:   <input type="text" name="password"/>
     name:       <input type="text" name="name"/>
     secondName: <input type="text" name="secondName"/>

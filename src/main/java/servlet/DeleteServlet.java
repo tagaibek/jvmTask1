@@ -1,6 +1,6 @@
 package servlet;
 
-import service.UserService;
+import service.UserService2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +17,9 @@ public class DeleteServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserService2 userService2 = new  UserService2();
         long id = Long.parseLong(request.getParameter("delete"));
-        boolean isDelete = UserService.getInstance().deleteById(id);
+        boolean isDelete = userService2.deleteById(id);
         if (isDelete){
             response.sendRedirect(request.getContextPath() + "/allUsersServlet");
         }else {

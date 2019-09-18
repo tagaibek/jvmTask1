@@ -1,7 +1,7 @@
 package servlet;
 
-import main.java.model.User;
-import service.UserService;
+import model.User;
+import service.UserService2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 
 @WebServlet("/UpdateServlet")
 public class UpdateServlet extends HttpServlet {
+    UserService2 userService2 = new  UserService2();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long id = Long.parseLong(request.getParameter("id"));
         String login = request.getParameter("login");
@@ -20,13 +21,13 @@ public class UpdateServlet extends HttpServlet {
         String name = request.getParameter("name");
         String secondName = request.getParameter("second_name");
         String mail = request.getParameter("mail");
-        User upDateUser = new User(login,password,name,secondName,mail);
+        User updateUser = new User(login, password, name, secondName, mail);
 
-        boolean upDate = UserService.getInstance().upDateUser(id,upDateUser);
+        boolean upDate = userService2.updateUser(id, updateUser);
 
         if (upDate) {
             response.sendRedirect(request.getContextPath() + "/allUsersServlet");
-        }else {
+        } else {
             PrintWriter pr = response.getWriter();
             pr.println("<html>");
             pr.println("<h1> The login already used! </h1>");
@@ -36,7 +37,7 @@ public class UpdateServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long id = Long.parseLong(request.getParameter("edit"));
-        User user = UserService.getInstance().getUserById(id);
+        User user = userService2.getUserById(id);
         if (user != null) {
             request.setAttribute("user", user);
             request.getRequestDispatcher("/update.jsp").forward(request, response);

@@ -2,8 +2,9 @@ package service;
 
 
 import DAO.UserDAO;
-import main.java.model.User;
+import model.User;
 import org.hibernate.SessionFactory;
+import util.DBHelper;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class UserService {
 
     public static UserService getInstance() {
         if (userService == null) {
-            userService = new UserService(main.java.util.DBHelper.getSessionFactory());
+            userService = new UserService(DBHelper.getSessionFactory());
         }
         return userService;
     }
@@ -25,13 +26,13 @@ public class UserService {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return new UserDAO(sessionFactory.openSession()).getAllUsers();
     }
 
-    public boolean addUser(User user){
+    public boolean addUser(User user) {
         boolean hasUser = new UserDAO(sessionFactory.openSession()).getUserByLogin(user.getLogin());
-        if (hasUser){
+        if (hasUser) {
             new UserDAO(sessionFactory.openSession()).addUser(user);
             return true;
         }
@@ -43,10 +44,10 @@ public class UserService {
         return userDAO.getUserById(id);
     }
 
-    public boolean upDateUser(long id, User upDateUser) {
-           boolean isLoginTrue = new UserDAO(sessionFactory.openSession()).getUserByLogin(upDateUser.getLogin());
-           if (!isLoginTrue){
-               return  new UserDAO(sessionFactory.openSession()).updateUser(id,upDateUser);
+    public boolean updateUser(long id, User updateUser) {
+           boolean isLoginTrue = new UserDAO(sessionFactory.openSession()).getUserByLogin(updateUser.getLogin());
+           if (isLoginTrue) {
+               return  new UserDAO(sessionFactory.openSession()).updateUser(id,updateUser);
            }
            return false;
     }
