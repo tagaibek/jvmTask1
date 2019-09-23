@@ -1,4 +1,4 @@
-package model;
+package ru.javamentor.first.task.model;
 
 import javax.persistence.*;
 

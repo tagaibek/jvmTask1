@@ -1,40 +1,37 @@
-package DAO;
+package ru.javamentor.first.task.dao;
 
-import DAO_interfaces.IUserDAO;
-import model.User;
+import ru.javamentor.first.task.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO2 implements IUserDAO {
+class UserDAOJDBC implements IUserDAO {
 
     private Connection connection;
 
-    public UserDAO2(Connection connection) {
+    UserDAOJDBC(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws SQLException {
         String sql = "select * from users";
         List<User> users = new ArrayList<>();
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                long id = rs.getLong("id");
-                String login = rs.getString("login");
-                String pass = rs.getString("password");
-                String name = rs.getString("name");
-                String secondName = rs.getString("secondName");
-                String mail = rs.getString("mail");
-                User user = new User(id, login, pass, name, secondName, mail);
-                users.add(user);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            long id = rs.getLong("id");
+            String login = rs.getString("login");
+            String pass = rs.getString("password");
+            String name = rs.getString("name");
+            String secondName = rs.getString("secondName");
+            String mail = rs.getString("mail");
+            User user = new User(id, login, pass, name, secondName, mail);
+            users.add(user);
         }
+
         return users;
     }
 
@@ -98,7 +95,7 @@ public class UserDAO2 implements IUserDAO {
             stmt.setString(3, upDateUser.getName());
             stmt.setString(4, upDateUser.getSecondName());
             stmt.setString(5, upDateUser.getMail());
-            stmt.setLong(6,id);
+            stmt.setLong(6, id);
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -122,7 +119,7 @@ public class UserDAO2 implements IUserDAO {
         return false;
     }
 
-
+    @Override
     public void createTable() throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.execute("create table if not exists users (id bigint auto_increment, login varchar(256), " +

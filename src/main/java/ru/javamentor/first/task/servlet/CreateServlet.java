@@ -1,7 +1,4 @@
-package servlet;
-
-import model.User;
-import service.UserService2;
+package ru.javamentor.first.task.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,15 +6,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 
 @WebServlet( "/CreateServlet")
 public class CreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService2 userService2 = new  UserService2();
+      //  UserService userService2 = new  UserService();
 
-        String login = request.getParameter("login");
+    /*    String login = request.getParameter("login");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         String secondName = request.getParameter("secondName");
@@ -35,7 +30,7 @@ public class CreateServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

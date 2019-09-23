@@ -1,12 +1,12 @@
-package DAO_interfaces;
+package ru.javamentor.first.task.dao;
 
-import model.User;
+import ru.javamentor.first.task.model.User;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public interface IUserDAO {
-    List<User> getAllUsers();
+    List<User> getAllUsers() throws SQLException;
 
     void addUser(User user) throws SQLException;
 

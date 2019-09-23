@@ -1,21 +1,22 @@
-package DAO;
+package ru.javamentor.first.task.dao;
 
-import model.User;
+import ru.javamentor.first.task.model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.sql.SQLException;
 import java.util.List;
 
-public class UserDAO {
+class UserDAOHibernate  implements  IUserDAO{
 
     private Session session;
 
-    public UserDAO(Session session) {
+    public UserDAOHibernate(Session session) {
         this.session = session;
     }
 
-
+    @Override
     public List<User> getAllUsers() {
         Transaction transaction = session.beginTransaction();
         List<User> users = session.createQuery("FROM User").list();
@@ -24,6 +25,7 @@ public class UserDAO {
         return users;
     }
 
+    @Override
     public void addUser(User user) {
         session.beginTransaction();
         session.save(user);
@@ -31,12 +33,14 @@ public class UserDAO {
         session.close();
     }
 
+    @Override
     public boolean getUserByLogin(String login) {
         Query query = session.createQuery("from User where login = :login");
         query.setParameter("login", login);
         return query.list().size() <= 0;
     }
 
+    @Override
     public User getUserById(long id) {
         Query query = session.createQuery("from User where id = :id");
         query.setParameter("id", id);
@@ -45,6 +49,7 @@ public class UserDAO {
         return users.get(0);
     }
 
+    @Override
     public boolean updateUser(long id, User upDateUser) {
         session.beginTransaction();
         String hql = "UPDATE User set " +
@@ -68,6 +73,7 @@ public class UserDAO {
         return result!= 0;
     }
 
+    @Override
     public boolean deleteById(long id) {
         session.beginTransaction();
         String hql = "delete from User where id= :id";
@@ -77,5 +83,10 @@ public class UserDAO {
         session.getTransaction().commit();
         session.close();
         return result != 0;
+    }
+
+    @Override
+    public void createTable() throws SQLException {
+
     }
 }
