@@ -54,7 +54,7 @@ class UserDAOJDBC implements IUserDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, login);
             ResultSet result = stmt.executeQuery();
-            if (result.next()) {
+            if (!result.next()) {
                 return true;
             }
         } catch (SQLException e) {
@@ -64,59 +64,45 @@ class UserDAOJDBC implements IUserDAO {
     }
 
     @Override
-    public User getUserById(long id) {
+    public User getUserById(long id) throws SQLException {
         String sql = "select * from users where id = ?";
         User user = null;
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setLong(1, id);
-            ResultSet result = stmt.executeQuery();
-            if (result.next()) {
-                user = new User(result.getLong("id"),
-                        result.getString("login"),
-                        result.getString("password"),
-                        result.getString("name"),
-                        result.getString("secondName"),
-                        result.getString("mail"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setLong(1, id);
+        ResultSet result = stmt.executeQuery();
+        if (result.next()) {
+            user = new User(result.getLong("id"),
+                    result.getString("login"),
+                    result.getString("password"),
+                    result.getString("name"),
+                    result.getString("secondName"),
+                    result.getString("mail"));
         }
         return user;
     }
 
     @Override
-    public boolean updateUser(long id, User upDateUser) {
+    public boolean updateUser(long id, User upDateUser) throws SQLException {
         String sql = "UPDATE users set login = ?, password = ?, name = ?, secondName = ?, mail =? where id = ?";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, upDateUser.getLogin());
-            stmt.setString(2, upDateUser.getPassword());
-            stmt.setString(3, upDateUser.getName());
-            stmt.setString(4, upDateUser.getSecondName());
-            stmt.setString(5, upDateUser.getMail());
-            stmt.setLong(6, id);
-            stmt.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, upDateUser.getLogin());
+        stmt.setString(2, upDateUser.getPassword());
+        stmt.setString(3, upDateUser.getName());
+        stmt.setString(4, upDateUser.getSecondName());
+        stmt.setString(5, upDateUser.getMail());
+        stmt.setLong(6, id);
+        stmt.executeUpdate();
+        return true;
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public boolean deleteById(long id) throws SQLException {
         String sql = "delete   from users where id = ?";
-        PreparedStatement stmt = null;
-        try {
-            stmt = connection.prepareStatement(sql);
-            stmt.setLong(1, id);
-            stmt.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setLong(1, id);
+        stmt.execute();
+        return true;
     }
 
     @Override

@@ -12,11 +12,11 @@ public interface IUserDAO {
 
     boolean getUserByLogin(String login);
 
-    User getUserById(long id);
+    User getUserById(long id) throws SQLException;
 
-    boolean updateUser(long id, User upDateUser);
+    boolean updateUser(long id, User upDateUser) throws SQLException;
 
-    boolean deleteById(long id);
+    boolean deleteById(long id) throws SQLException;
 
     void createTable() throws SQLException;
 }

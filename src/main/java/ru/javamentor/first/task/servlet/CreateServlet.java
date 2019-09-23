@@ -1,25 +1,29 @@
 package ru.javamentor.first.task.servlet;
 
+import ru.javamentor.first.task.model.User;
+import ru.javamentor.first.task.service.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 
 @WebServlet( "/CreateServlet")
 public class CreateServlet extends HttpServlet {
+    private UserService userService = UserService.getInstance();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      //  UserService userService2 = new  UserService();
-
-    /*    String login = request.getParameter("login");
+        String login = request.getParameter("login");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         String secondName = request.getParameter("secondName");
         String mail = request.getParameter("mail");
         User user = new User(login, password, name, secondName, mail);
         try {
-            boolean isAdd = userService2.addUser(user);
+            boolean isAdd = userService.addUser(user);
             if (isAdd) {
                 response.sendRedirect(request.getContextPath() + "/allUsersServlet");
             } else {
@@ -29,8 +33,8 @@ public class CreateServlet extends HttpServlet {
                 pr.println("</html>");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

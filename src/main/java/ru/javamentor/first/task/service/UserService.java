@@ -26,30 +26,27 @@ public class UserService {
         return UserDAOFactory.getInstance().getAllUsers();
     }
 
-   /* public boolean addUser(User user) throws IOException, SQLException {
-        IUserDAO iUserDAO = ConnectionFactoryDAO.getConnectionFactory();
-        boolean hasUser = iUserDAO.getUserByLogin(user.getLogin());
+    public boolean addUser(User user) throws IOException, SQLException {
+        boolean hasUser = UserDAOFactory.getInstance().getUserByLogin(user.getLogin());
         if (hasUser) {
-           iUserDAO.addUser(user);
+            UserDAOFactory.getInstance().addUser(user);
             return true;
         }
         return false;
     }
-*/
-  /*  public User getUserById(long id) {
-        IUserDAO userDAO = new UserDAO(connectionFactoryDAO.openSession());
-        return userDAO.getUserById(id);
+    public User getUserById(long id) throws IOException, SQLException {
+        return UserDAOFactory.getInstance().getUserById(id);
     }
 
-    public boolean updateUser(long id, User updateUser) {
-           boolean isLoginTrue = new UserDAO(sessionFactory.openSession()).getUserByLogin(updateUser.getLogin());
+    public boolean updateUser(long id, User updateUser) throws IOException, SQLException {
+           boolean isLoginTrue = UserDAOFactory.getInstance().getUserByLogin(updateUser.getLogin());
            if (isLoginTrue) {
-               return  new UserDAO(sessionFactory.openSession()).updateUser(id,updateUser);
+               return  UserDAOFactory.getInstance().updateUser(id,updateUser);
            }
            return false;
     }
 
-    public boolean deleteById(long id) {
-        return new UserDAO(sessionFactory.openSession()).deleteById(id);
-    }*/
+    public boolean deleteById(long id) throws IOException, SQLException {
+        return UserDAOFactory.getInstance().deleteById(id);
+    }
 }
