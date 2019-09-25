@@ -17,16 +17,16 @@ public class UpdateServlet extends HttpServlet {
     private UserService userService = UserService.getInstance();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long id = Long.parseLong(request.getParameter("id"));
+        String role = request.getParameter("role");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
         String secondName = request.getParameter("second_name");
-        String mail = request.getParameter("mail");
-        User updateUser = new User(login, password, name, secondName, mail);
+        User updateUser = new User(role,login, password, name, secondName);
         try {
             boolean upDate = userService.updateUser(id, updateUser);
             if (upDate) {
-                response.sendRedirect(request.getContextPath() + "/allUsersServlet");
+                response.sendRedirect(request.getContextPath() + "/admin");
             } else {
                 PrintWriter pr = response.getWriter();
                 pr.println("<html>");

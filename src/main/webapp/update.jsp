@@ -12,6 +12,12 @@
 <form name="Update" action="UpdateServlet" method="post">
     <input type="hidden" name="id" value="${requestScope.user.id}" />
 
+
+    <label>
+        Role:
+        <input type="text" name="role" value="${requestScope.user.role}" />
+    </label>
+
     <label>
         Login:
         <input type="text" name="login" value="${requestScope.user.login}" />
@@ -30,11 +36,6 @@
     <label>
         SecondName:
         <input type="text" name="second_name" value="${requestScope.user.secondName}" />
-    </label>
-
-    <label>
-        Mail:
-        <input type="text" name="mail" value="${requestScope.user.mail}" />
     </label>
 
     <input type="submit" name="submit" value="Submit" />

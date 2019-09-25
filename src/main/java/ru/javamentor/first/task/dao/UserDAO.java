@@ -5,7 +5,7 @@ import ru.javamentor.first.task.model.User;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface IUserDAO {
+public interface UserDAO {
     List<User> getAllUsers() throws SQLException;
 
     void addUser(User user) throws SQLException;
@@ -17,6 +17,8 @@ public interface IUserDAO {
     boolean updateUser(long id, User upDateUser) throws SQLException;
 
     boolean deleteById(long id) throws SQLException;
+
+    User getUserByLoginAndPassword(String login, String password) throws SQLException;
 
     void createTable() throws SQLException;
 }

@@ -11,7 +11,7 @@ public class UserDAOFactory {
 
     private UserDAOFactory(){}
 
-    public static IUserDAO getInstance() throws IOException {
+    public static UserDAO getInstance() throws IOException {
         Properties property = new Properties();
         try(InputStream is = UserDAOFactory.class.getClassLoader().getResourceAsStream("config.properties")) {
             Objects.requireNonNull(is, "InputStream is null.");

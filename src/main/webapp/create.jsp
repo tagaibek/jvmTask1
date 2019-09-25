@@ -20,6 +20,6 @@ create.jsp
     password:   <input type="text" name="password"/>
     name:       <input type="text" name="name"/>
     secondName: <input type="text" name="secondName"/>
-    mail:       <input type="text" name="mail"/>
+    role:       <input type="text" name="role"/>
     <input type="submit" value="Create"/>
 </form>

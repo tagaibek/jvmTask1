@@ -49,4 +49,8 @@ public class UserService {
     public boolean deleteById(long id) throws IOException, SQLException {
         return UserDAOFactory.getInstance().deleteById(id);
     }
+
+    public User getUserByLogin( String login, String password) throws IOException, SQLException {
+        return UserDAOFactory.getInstance().getUserByLoginAndPassword(login,password);
+    }
 }

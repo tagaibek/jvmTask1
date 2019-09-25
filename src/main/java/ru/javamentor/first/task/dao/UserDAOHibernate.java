@@ -8,7 +8,7 @@ import org.hibernate.Transaction;
 import java.sql.SQLException;
 import java.util.List;
 
-class UserDAOHibernate  implements  IUserDAO{
+class UserDAOHibernate  implements UserDAO {
 
     private Session session;
 
@@ -56,15 +56,15 @@ class UserDAOHibernate  implements  IUserDAO{
                 "login = :login," +
                 "password = :password, " +
                 "name = :name ," +
-                "secondName = :secondName, "+
-                "mail = :mail "+
+                "role = :role," +
+                "secondName = :secondName "+
                 "where id = :id";
         Query qr = session.createQuery(hql);
         qr.setParameter("login",upDateUser.getLogin());
         qr.setParameter("password",upDateUser.getPassword());
         qr.setParameter("name",upDateUser.getName());
+        qr.setParameter("role",upDateUser.getRole());
         qr.setParameter("secondName",upDateUser.getSecondName());
-        qr.setParameter("mail",upDateUser.getMail());
         qr.setParameter("id",id);
         int result = qr.executeUpdate();
 
@@ -83,6 +83,16 @@ class UserDAOHibernate  implements  IUserDAO{
         session.getTransaction().commit();
         session.close();
         return result != 0;
+    }
+
+    @Override
+    public User getUserByLoginAndPassword(String login, String password) {
+        Query query = session.createQuery("from User where login = ? and password = ?");
+        query.setParameter(0, login);
+        query.setParameter(1, password);
+        List<User> users = (List<User>) query.list();
+        if (users.isEmpty()) return null;
+        return users.get(0);
     }
 
     @Override
