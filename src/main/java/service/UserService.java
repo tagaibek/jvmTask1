@@ -1,8 +1,8 @@
-package ru.javamentor.first.task.service;
+package service;
 
 
-import ru.javamentor.first.task.dao.UserDAOFactory;
-import ru.javamentor.first.task.model.User;
+import dao.UserDAOFactory;
+import model.User;
 
 import java.io.IOException;
 import java.sql.SQLException;

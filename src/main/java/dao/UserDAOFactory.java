@@ -1,6 +1,6 @@
-package ru.javamentor.first.task.dao;
+package dao;
 
-import ru.javamentor.first.task.util.DBHelper;
+import util.DBHelper;
 
 import java.io.IOException;
 import java.io.InputStream;

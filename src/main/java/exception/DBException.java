@@ -1,4 +1,4 @@
-package ru.javamentor.first.task.exception;
+package exception;
 
 public class DBException extends Exception {
     public DBException(Throwable throwable) {

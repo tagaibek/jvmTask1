@@ -1,7 +1,7 @@
-package ru.javamentor.first.task.servlet;
+package servlet;
 
-import ru.javamentor.first.task.model.User;
-import ru.javamentor.first.task.service.UserService;
+import model.User;
+import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

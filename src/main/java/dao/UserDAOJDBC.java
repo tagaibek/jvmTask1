@@ -1,6 +1,6 @@
-package ru.javamentor.first.task.dao;
+package dao;
 
-import ru.javamentor.first.task.model.User;
+import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;

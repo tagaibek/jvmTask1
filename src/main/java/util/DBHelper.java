@@ -1,6 +1,6 @@
-package ru.javamentor.first.task.util;
+package util;
 
-import ru.javamentor.first.task.model.User;
+import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
